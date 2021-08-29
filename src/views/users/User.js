@@ -5,7 +5,6 @@ import {
   CCardHeader,
   CCol,
   CRow,
-  CSwitch,
   CButton,
 } from "@coreui/react";
 
