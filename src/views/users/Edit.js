@@ -50,7 +50,7 @@ const Edit = ({ match }) => {
         <CCol xs="12" md="8">
           <CCard>
             <CCardHeader>
-              Edit user
+              Edit patient
               <small> {userDetails.name}</small>
             </CCardHeader>
             <CCardBody>

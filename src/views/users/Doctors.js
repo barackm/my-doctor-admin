@@ -28,7 +28,7 @@ const getBadge = (status) => {
   }
 };
 
-const Users = () => {
+const Doctors = () => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
@@ -47,7 +47,7 @@ const Users = () => {
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
-            Patients
+            Doctors
             <small className="text-muted"> List</small>
           </CCardHeader>
           <CCardBody>
@@ -87,4 +87,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Doctors;

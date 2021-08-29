@@ -31,7 +31,7 @@ const TheSidebar = () => {
         to="/"
         style={{ padding: "0.5rem 0" }}
       >
-        <img src={logo} alt="logo" style={{ width: "70px", height: "50px" }} />
+        <img src={logo} alt="logo" style={{ width: "60px", height: "50px" }} />
         <h4 style={{ marginLeft: "1rem" }}>My Doctor</h4>
       </CSidebarBrand>
       <CSidebarNav>

@@ -1,4 +1,5 @@
 import React from "react";
+import Doctors from "./views/users/Doctors";
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -124,6 +125,12 @@ const routes = [
     exact: true,
     name: "Edit User",
     component: EditUser,
+  },
+  {
+    path: "/doctors/",
+    exact: true,
+    name: "Doctors",
+    component: Doctors,
   },
 ];
 
