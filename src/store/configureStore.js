@@ -1,0 +1,11 @@
+import { configureStore } from "@reduxjs/toolkit";
+import api from "./middlewares/api";
+
+import reducer from "./reducers";
+
+export default function store() {
+  return configureStore({
+    reducer,
+    middleware: (defaultMiddlewares) => defaultMiddlewares().concat(api),
+  });
+}
