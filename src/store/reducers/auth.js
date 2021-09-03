@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "../actions/api";
 
 const auth = createSlice({
   name: "auth",
@@ -26,4 +27,17 @@ const auth = createSlice({
   },
 });
 
+const { authServiceStarted, loginUserFailed, loginUserSucceeded } =
+  auth.actions;
 export default auth.reducer;
+
+export const loginUser = (user) => (dispatch) => {
+  return dispatch(
+    apiCallBegan({
+      onStart: authServiceStarted.type,
+      onError: loginUserFailed.type,
+      onSuccess: loginUserSucceeded.type,
+      data: user,
+    })
+  );
+};

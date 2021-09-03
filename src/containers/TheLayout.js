@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import checkAuthentication from "src/utils/checkAuthentication";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 
-const TheLayout = () => {
+const TheLayout = ({ history }) => {
+  useEffect(() => {
+    if (!checkAuthentication()) return history.replace("/login");
+  }, []);
   return (
     <div className="c-app c-default-layout">
       <TheSidebar />
