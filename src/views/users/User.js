@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CCard,
   CCardBody,
@@ -11,9 +11,14 @@ import {
 import CIcon from "@coreui/icons-react";
 
 import usersData from "./UsersData";
+import Model from "../../reusable/Model";
 
 const User = ({ match }) => {
+  const [modelShown, setModelShown] = useState(false);
   const user = usersData.find((user) => user.id.toString() === match.params.id);
+  const handleDeleteUser = () => {
+    console.log("deleting user...");
+  };
   const userDetails = user
     ? Object.entries(user)
     : [
@@ -28,6 +33,13 @@ const User = ({ match }) => {
   return (
     <CRow>
       <CCol lg={12}>
+        {modelShown && (
+          <Model
+            onHideModel={setModelShown}
+            modelShown={modelShown}
+            onAccept={handleDeleteUser}
+          />
+        )}
         <CCard>
           <CCardHeader
             style={{
@@ -55,7 +67,7 @@ const User = ({ match }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                to="/"
+                onClick={() => setModelShown(true)}
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove User</span>

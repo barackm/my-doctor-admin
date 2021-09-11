@@ -472,7 +472,12 @@ const Edit = ({ match }) => {
               <CButton type="submit" size="sm" color="primary">
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>
-              <CButton type="reset" size="sm" color="danger">
+              <CButton
+                type="reset"
+                size="sm"
+                color="danger"
+                style={{ marginLeft: "0.5rem" }}
+              >
                 <CIcon name="cil-ban" /> Reset
               </CButton>
             </CCardFooter>

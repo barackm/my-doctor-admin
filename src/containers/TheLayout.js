@@ -4,8 +4,8 @@ import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 
 const TheLayout = ({ history }) => {
   useEffect(() => {
-    if (!checkAuthentication()) return history.replace("/login");
-  }, []);
+    checkAuthentication(history);
+  }, [history]);
   return (
     <div className="c-app c-default-layout">
       <TheSidebar />

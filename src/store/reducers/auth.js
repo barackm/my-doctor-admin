@@ -10,7 +10,7 @@ const auth = createSlice({
     isAuthenticated: false,
   },
   reducers: {
-    authServiceStarted: (auth, action) => {
+    authServiceStarted: (auth) => {
       auth.loading = true;
     },
     loginUserSucceeded: (auth, action) => {
@@ -22,7 +22,7 @@ const auth = createSlice({
     loginUserFailed: (auth, action) => {
       auth.isAuthenticated = false;
       auth.loading = false;
-      auth.error = action.error;
+      auth.error = action.payload;
     },
   },
 });
@@ -32,12 +32,14 @@ const { authServiceStarted, loginUserFailed, loginUserSucceeded } =
 export default auth.reducer;
 
 export const loginUser = (user) => (dispatch) => {
-  return dispatch(
+  dispatch(
     apiCallBegan({
       onStart: authServiceStarted.type,
       onError: loginUserFailed.type,
       onSuccess: loginUserSucceeded.type,
       data: user,
+      url: "/auth",
+      method: "POST",
     })
   );
 };

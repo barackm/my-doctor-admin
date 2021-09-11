@@ -1,6 +1,6 @@
 {
-  "short_name": "My Doctor",
-  "name": "My Doctor",
+  "short_name": "My Doctor Admin",
+  "name": "My Doctor Admin",
   "icons": [
     {
       "src": "./logo.png",

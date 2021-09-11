@@ -15,14 +15,17 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import checkAuthentication from "src/utils/checkAuthentication";
+import { connect } from "react-redux";
 
-const Login = ({ history }) => {
+import { loginUser } from "src/store/reducers/auth";
+
+const Login = ({ history, loginUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: null, password: null });
   useEffect(() => {
-    if (checkAuthentication()) return history.replace("/");
-  });
+    checkAuthentication(history);
+  }, [history]);
 
   const handleChange = ({ target }) => {
     if (target.name === "email") {
@@ -44,8 +47,8 @@ const Login = ({ history }) => {
       setErrors({ password: null });
     }
 
-    if (errors.email && errors.password) {
-      console.log("submitting....");
+    if (!errors.email && !errors.password) {
+      loginUser({ email, password });
     }
   };
 
@@ -134,4 +137,8 @@ const Login = ({ history }) => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = {
+  loginUser: (user) => loginUser(user),
+};
+
+export default connect(null, mapDispatchToProps)(Login);
