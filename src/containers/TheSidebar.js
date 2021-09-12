@@ -27,12 +27,12 @@ const TheSidebar = () => {
       onShowChange={(val) => dispatch({ type: "set", sidebarShow: val })}
     >
       <CSidebarBrand
-        className="d-md-down-none"
+        className={show ? "d-md-down-none sidebar-header" : "d-md-down-none"}
         to="/"
         style={{ padding: "0.5rem 0" }}
       >
-        <img src={logo} alt="logo" style={{ width: "60px", height: "50px" }} />
-        <h4 style={{ marginLeft: "1rem" }}>My Doctor</h4>
+        <img src={logo} alt="logo" className="sidebar-logo-image" />
+        <h4 className="sidebar-hero-text">My Doctor</h4>
       </CSidebarBrand>
       <CSidebarNav>
         <CCreateElement
