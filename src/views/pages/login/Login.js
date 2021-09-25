@@ -17,9 +17,10 @@ import CIcon from "@coreui/icons-react";
 import checkAuthentication from "src/utils/checkAuthentication";
 import { connect } from "react-redux";
 
+import Toaster from "../../../reusable/Toaster";
 import { loginUser } from "src/store/reducers/auth";
 
-const Login = ({ history, loginUser }) => {
+const Login = ({ history, loginUser, error }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: null, password: null });
@@ -54,6 +55,7 @@ const Login = ({ history, loginUser }) => {
 
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
+      {error && <Toaster title="Login" message={error} show error />}
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md="8">
@@ -137,8 +139,11 @@ const Login = ({ history, loginUser }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  error: state.auth.error,
+});
 const mapDispatchToProps = {
   loginUser: (user) => loginUser(user),
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

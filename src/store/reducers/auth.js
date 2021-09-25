@@ -12,6 +12,7 @@ const auth = createSlice({
   reducers: {
     authServiceStarted: (auth) => {
       auth.loading = true;
+      auth.error = null;
     },
     loginUserSucceeded: (auth, action) => {
       auth.currentUser = action.payload;

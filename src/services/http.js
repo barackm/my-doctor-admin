@@ -1,8 +1,8 @@
 import axios from "axios";
 // import { toast } from 'react-toastify';
-// import storage from "../utils/storage";
+import storage from "../utils/storage";
 
-// axios.defaults.headers.common.Authorization = storage.getAuthToken();
+axios.defaults.headers.common.Authorization = storage.getAuthToken();
 axios.interceptors.response.use(null, (error) => {
   const expectedError =
     error.response &&
