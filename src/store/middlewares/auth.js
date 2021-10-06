@@ -1,14 +1,15 @@
 import http from "src/services/http";
+import storage from "src/utils/storage";
 
-import * as actions from "../actions/api";
+import * as actions from "../actions/auth";
 
 const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
 
-const auth =
+const api =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type !== actions.apiCallBegan.type) return next(action);
+    if (action.type !== actions.authApiCallStarted.type) return next(action);
     const { onStart, url, data, method, onSuccess, onError } = action.payload;
     next(action);
     if (onStart) dispatch({ type: onStart });
@@ -19,20 +20,22 @@ const auth =
         data,
         method,
       });
+      console.log(response.headers);
+      //   storage.setAuthToken(response.headers["X-Auth-Token"]);
       onSuccess
         ? dispatch({ type: onSuccess, payload: response.data })
         : dispatch({
-            type: actions.apiCallSucceeded.type,
+            type: actions.authApiCallSucceded.type,
             payload: response.data,
           });
     } catch (error) {
       onError
         ? dispatch({ type: onError, payload: error.message })
         : dispatch({
-            type: actions.apiCallFailed.type,
+            type: actions.authApiCallFailed.type,
             payload: error.message,
           });
     }
   };
 
-export default auth;
+export default api;

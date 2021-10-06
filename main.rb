@@ -1,0 +1,1 @@
+puts "".chars.sort.join == ""

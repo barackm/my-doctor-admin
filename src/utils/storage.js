@@ -5,7 +5,7 @@ const storage = {
   set: (key, value) => JSON.stringify(localStorage.setItem(key, value)),
   remove: (key) => localStorage.removeItem(key),
   getAuthToken: () => JSON.parse(localStorage.getItem(authKey)),
-  setAuthToken: () => JSON.stringify(localStorage.setItem(authKey)),
+  setAuthToken: (token) => JSON.stringify(localStorage.setItem(authKey, token)),
   removeAuthToken: () => localStorage.removeItem(authKey),
 };
 
