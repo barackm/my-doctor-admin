@@ -5,15 +5,10 @@ import {
   CToastBody,
   CToastHeader,
   CToaster,
-  CContainer,
-  CRow,
-  CCol,
 } from "@coreui/react";
 
 const Toaster = ({ title, message, show, error }) => {
-  const [toasts, setToasts] = useState([
-    { position: "top-right", autohide: 8000 },
-  ]);
+  const [toasts] = useState([{ position: "top-right", autohide: 8000 }]);
 
   const toasters = (() => {
     return toasts.reduce((toasters, toast) => {

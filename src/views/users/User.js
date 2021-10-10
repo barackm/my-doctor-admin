@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CCard,
   CCardBody,
@@ -10,25 +10,26 @@ import {
 
 import CIcon from "@coreui/icons-react";
 
-import usersData from "./UsersData";
 import Model from "../../reusable/Model";
+import { loadUsers } from "src/store/reducers/users";
+import { connect } from "react-redux";
+import { loadDoctors } from "src/store/reducers/doctors";
 
-const User = ({ match }) => {
+const User = ({ match, users, history, loadUsers, loadDoctors, doctors }) => {
   const [modelShown, setModelShown] = useState(false);
-  const user = usersData.find((user) => user.id.toString() === match.params.id);
+  useEffect(() => {
+    loadUsers();
+    loadDoctors();
+  }, [loadUsers, loadDoctors]);
+  const user =
+    users.find((user) => user._id.toString() === match.params.id) ||
+    doctors.find((user) => user._id.toString() === match.params.id);
+  if (!user) {
+    return history.push("/users");
+  }
   const handleDeleteUser = () => {
     console.log("deleting user...");
   };
-  const userDetails = user
-    ? Object.entries(user)
-    : [
-        [
-          "id",
-          <span>
-            <CIcon className="text-muted" name="cui-icon-ban" /> Not found
-          </span>,
-        ],
-      ];
 
   return (
     <CRow>
@@ -78,16 +79,72 @@ const User = ({ match }) => {
           <CCardBody>
             <table className="table table-striped table-hover">
               <tbody>
-                {userDetails.map(([key, value], index) => {
-                  return (
-                    <tr key={index.toString()}>
-                      <td>{`${key}:`}</td>
-                      <td>
-                        <strong>{value}</strong>
-                      </td>
-                    </tr>
-                  );
-                })}
+                <tr>
+                  <td>Status</td>
+                  <td>
+                    <strong>{user.status || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Name</td>
+                  <td>
+                    <strong>{user.name || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Last Name</td>
+                  <td>
+                    <strong>{user.lastName || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>
+                    <strong>{user.email || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Phone Number</td>
+                  <td>
+                    <strong>{user.phoneNumber || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Age</td>
+                  <td>
+                    <strong>{user.age || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Kit Identifier</td>
+                  <td>
+                    <strong>{user.kitIdentifier || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Gender</td>
+                  <td>
+                    <strong>{user.gender || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Country</td>
+                  <td>
+                    <strong>{user.country || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>City</td>
+                  <td>
+                    <strong>{user.city || "-"}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Street Number</td>
+                  <td>
+                    <strong>{user.streetNumber || "-"}</strong>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </CCardBody>
@@ -97,4 +154,17 @@ const User = ({ match }) => {
   );
 };
 
-export default User;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users.list,
+    loading: state.users.loading,
+    doctors: state.doctors.list,
+  };
+};
+
+const mapDispatchToProps = {
+  loadUsers: () => loadUsers(),
+  loadDoctors: () => loadDoctors(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

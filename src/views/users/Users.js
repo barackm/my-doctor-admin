@@ -11,24 +11,24 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import usersData from "./UsersData";
+import { connect } from "react-redux";
+import { loadUsers } from "src/store/reducers/users";
 
 const getBadge = (status) => {
   switch (status) {
     case "Active":
       return "success";
     case "Inactive":
-      return "secondary";
+      return "danger";
     case "Pending":
       return "warning";
-    case "Banned":
-      return "danger";
     default:
       return "primary";
   }
 };
 
-const Users = () => {
+const Users = (props) => {
+  const { loadUsers, users } = props;
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
@@ -40,7 +40,8 @@ const Users = () => {
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
-  }, [currentPage, page]);
+    loadUsers();
+  }, [currentPage, page, loadUsers]);
 
   return (
     <CRow>
@@ -52,11 +53,12 @@ const Users = () => {
           </CCardHeader>
           <CCardBody>
             <CDataTable
-              items={usersData}
+              items={users}
               fields={[
                 { key: "name", _classes: "font-weight-bold" },
-                "registered",
-                "role",
+                { key: "lastName", _classes: "font-weight-bold" },
+                "email",
+                "phoneNumber",
                 "status",
               ]}
               hover
@@ -64,7 +66,7 @@ const Users = () => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item.id}`)}
+              onRowClick={(item) => history.push(`/users/${item._id}`)}
               scopedSlots={{
                 status: (item) => (
                   <td>
@@ -76,7 +78,7 @@ const Users = () => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={5}
+              pages={Math.ceil(users.length / 5)}
               doubleArrows={false}
               align="center"
             />
@@ -87,4 +89,15 @@ const Users = () => {
   );
 };
 
-export default Users;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users.list,
+    loading: state.users.loading,
+  };
+};
+
+const mapDispatchToProps = {
+  loadUsers: () => loadUsers(),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

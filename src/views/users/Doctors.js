@@ -8,27 +8,28 @@ import {
   CCol,
   CDataTable,
   CRow,
+  CButton,
   CPagination,
 } from "@coreui/react";
 
-import usersData from "./UsersData";
+import CIcon from "@coreui/icons-react";
+import { connect } from "react-redux";
+import { loadDoctors } from "src/store/reducers/doctors";
 
 const getBadge = (status) => {
   switch (status) {
     case "Active":
       return "success";
     case "Inactive":
-      return "secondary";
+      return "danger";
     case "Pending":
       return "warning";
-    case "Banned":
-      return "danger";
     default:
       return "primary";
   }
 };
 
-const Doctors = () => {
+const Doctors = ({ loadDoctors, doctors }) => {
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
@@ -40,23 +41,37 @@ const Doctors = () => {
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
-  }, [currentPage, page]);
+    loadDoctors();
+  }, [currentPage, page, loadDoctors]);
 
   return (
     <CRow>
       <CCol xl={12}>
         <CCard>
-          <CCardHeader>
-            Doctors
-            <small className="text-muted"> List</small>
+          <CCardHeader
+            style={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <div>
+              Doctors
+              <small className="text-muted"> List</small>
+            </div>
+            <CButton
+              size="sm"
+              className="btn-facebook btn-brand mr-1 mb-1"
+              to={`/users/new/edit`}
+            >
+              <CIcon size="sm" name="cil-pencil" />
+              <span className="mfs-2">New Doctor</span>
+            </CButton>
           </CCardHeader>
           <CCardBody>
             <CDataTable
-              items={usersData}
+              items={doctors}
               fields={[
                 { key: "name", _classes: "font-weight-bold" },
-                "registered",
-                "role",
+                { key: "lastName", _classes: "font-weight-bold" },
+                "email",
+                "phoneNumber",
                 "status",
               ]}
               hover
@@ -64,7 +79,7 @@ const Doctors = () => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item.id}`)}
+              onRowClick={(item) => history.push(`/users/${item._id}`)}
               scopedSlots={{
                 status: (item) => (
                   <td>
@@ -76,7 +91,7 @@ const Doctors = () => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={5}
+              pages={Math.ceil(doctors.length / 5)}
               doubleArrows={false}
               align="center"
             />
@@ -87,4 +102,13 @@ const Doctors = () => {
   );
 };
 
-export default Doctors;
+const mapStateToProps = (state) => {
+  return {
+    doctors: state.doctors.list,
+  };
+};
+
+const mapDispatchToProps = {
+  loadDoctors: () => loadDoctors(),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Doctors);

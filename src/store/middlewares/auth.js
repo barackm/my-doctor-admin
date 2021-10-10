@@ -1,9 +1,9 @@
 import http from "src/services/http";
-import storage from "src/utils/storage";
 
 import * as actions from "../actions/auth";
 
-const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
+// const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
+const apiEndPoint = "http://localhost:5000/api";
 
 const api =
   ({ dispatch }) =>
@@ -21,7 +21,7 @@ const api =
         method,
       });
       console.log(response.headers);
-      //   storage.setAuthToken(response.headers["X-Auth-Token"]);
+      // storage.setAuthToken(response.headers["X-Auth-Token"]);
       onSuccess
         ? dispatch({ type: onSuccess, payload: response.data })
         : dispatch({
