@@ -29,6 +29,11 @@ const User = ({ match, users, history, loadUsers, loadDoctors, doctors }) => {
   }
   const handleDeleteUser = () => {
     console.log("deleting user...");
+    console.log(
+      `/${match.params.name === "d" ? "doctors" : "users"}/${match.params.id}/${
+        match.params.name
+      }/edit`
+    );
   };
 
   return (
@@ -60,7 +65,9 @@ const User = ({ match, users, history, loadUsers, loadDoctors, doctors }) => {
               <CButton
                 size="sm"
                 className="btn-facebook btn-brand mr-1 mb-1"
-                to={`/${doctors ? "doctors" : "users"}/${match.params.id}/edit`}
+                to={`/${match.params.name === "d" ? "doctors" : "users"}/${
+                  match.params.id
+                }/${match.params.name}/edit`}
               >
                 <CIcon size="sm" name="cil-pencil" />
                 <span className="mfs-2">Edit User</span>

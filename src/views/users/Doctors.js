@@ -80,7 +80,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/doctors/${item._id}`)}
+              onRowClick={(item) => history.push(`/doctors/${item._id}/d`)}
               scopedSlots={{
                 status: (item) => (
                   <td>
