@@ -2,8 +2,8 @@ import http from "src/services/http";
 
 import * as actions from "../actions/api";
 
-const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
-// const apiEndPoint = "http://localhost:5000/api";
+// const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
+const apiEndPoint = "http://localhost:5000/api";
 
 const auth =
   ({ dispatch }) =>

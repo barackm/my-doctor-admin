@@ -36,7 +36,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
   const [page, setPage] = useState(currentPage);
 
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`);
+    currentPage !== newPage && history.push(`/doctors?page=${newPage}`);
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item._id}`)}
+              onRowClick={(item) => history.push(`/doctors/${item._id}`)}
               scopedSlots={{
                 status: (item) => (
                   <td>

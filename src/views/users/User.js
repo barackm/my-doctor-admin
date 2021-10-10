@@ -60,7 +60,7 @@ const User = ({ match, users, history, loadUsers, loadDoctors, doctors }) => {
               <CButton
                 size="sm"
                 className="btn-facebook btn-brand mr-1 mb-1"
-                to={`/users/${match.params.id}/edit`}
+                to={`/${doctors ? "doctors" : "users"}/${match.params.id}/edit`}
               >
                 <CIcon size="sm" name="cil-pencil" />
                 <span className="mfs-2">Edit User</span>
