@@ -34,6 +34,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  // const cName = 'doctors';
 
   const pageChange = (newPage) => {
     currentPage !== newPage && history.push(`/doctors?page=${newPage}`);
