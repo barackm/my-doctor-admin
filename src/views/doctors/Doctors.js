@@ -59,7 +59,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
             <CButton
               size="sm"
               className="btn-facebook btn-brand mr-1 mb-1"
-              to={`/users/new/edit`}
+              to={`/doctors/new/edit`}
             >
               <CIcon size="sm" name="cil-pencil" />
               <span className="mfs-2">New Doctor</span>
@@ -80,7 +80,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/doctors/${item._id}/d`)}
+              onRowClick={(item) => history.push(`/doctors/${item._id}`)}
               scopedSlots={{
                 status: (item) => (
                   <td>

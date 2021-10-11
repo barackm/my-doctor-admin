@@ -66,7 +66,7 @@ const Users = (props) => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item._id}/u`)}
+              onRowClick={(item) => history.push(`/users/${item._id}/`)}
               scopedSlots={{
                 status: (item) => (
                   <td>
