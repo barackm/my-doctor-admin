@@ -119,9 +119,27 @@ const routes = [
   { path: "/notifications/toaster", name: "Toaster", component: Toaster },
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
-  { path: "/users/:id", exact: true, name: "User Details", component: User },
   {
-    path: "/users/:id/edit",
+    path: "/users/:id/:name",
+    exact: true,
+    name: "User Details",
+    component: User,
+  },
+  {
+    path: "/doctors/:id/:name",
+    exact: true,
+    name: "Doctor Details",
+    component: User,
+  },
+
+  {
+    path: "/users/:id/:name/edit",
+    exact: true,
+    name: "Edit User",
+    component: EditUser,
+  },
+  {
+    path: "/doctors/:id/:name/edit",
     exact: true,
     name: "Edit User",
     component: EditUser,
