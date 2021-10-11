@@ -67,7 +67,7 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
                 to={`/doctors/${match.params.id}/edit`}
               >
                 <CIcon size="sm" name="cil-pencil" />
-                <span className="mfs-2">Edit User</span>
+                <span className="mfs-2">Edit Doctor</span>
               </CButton>
               <CButton
                 size="sm"
@@ -75,7 +75,7 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
                 onClick={() => setModelShown(true)}
               >
                 <CIcon size="sm" name="cil-trash" />
-                <span className="mfs-2">Remove User</span>
+                <span className="mfs-2">Remove Doctor</span>
               </CButton>
             </div>
           </CCardHeader>
