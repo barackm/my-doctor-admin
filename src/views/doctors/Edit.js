@@ -10,6 +10,7 @@ import {
   CForm,
   CFormGroup,
   CFormText,
+  CTextarea,
   CInput,
   CLabel,
   CSelect,
@@ -17,12 +18,23 @@ import {
 
 import CIcon from "@coreui/icons-react";
 
-import { loadUsers, updateUserInfo } from "src/store/reducers/users";
 import { connect } from "react-redux";
+import {
+  createDoctor,
+  loadDoctors,
+  updateDoctorInfo,
+} from "src/store/reducers/doctors";
 
-const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
+const Edit = ({
+  match,
+  history,
+  loadDoctors,
+  doctors,
+  createDoctor,
+  updateDoctorInfo,
+}) => {
   const [errors, setErrors] = React.useState({});
-  const [user, setUser] = React.useState({
+  const [doctor, setDoctor] = React.useState({
     _id: "",
     name: "",
     email: "",
@@ -32,35 +44,44 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
     status: "Pending",
     gender: "",
     country: "",
+    about: "",
     city: "",
     profileImage: "",
-    streetNumber: "",
-    kitIdentifier: "",
+    password: "",
   });
 
   useEffect(() => {
-    loadUsers();
-    const foundUser = users.find(
-      (user) => user._id.toString() === match.params.id
-    );
-
-    if (!foundUser) {
-      history.replace("/users");
+    loadDoctors();
+    if (match.params.id === "new") {
+      return;
     }
-    setUser({ ...user, ...foundUser });
+
+    const doctor = doctors.find(
+      (doctor) => doctor._id.toString() === match.params.id
+    );
+    if (!doctor) {
+      history.replace("/doctors");
+    }
+
+    setDoctor({ ...doctor, password: "" });
     // eslint-disable-next-line
   }, []);
 
   const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setDoctor({ ...doctor, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    validateUserData(user);
+    validateUserData(doctor);
     if (errors["name"] || errors["email" || errors["lastName"]]) return;
-    updateUserInfo(user._id, user);
-    history.push("/users");
+    if (doctor._id) {
+      updateDoctorInfo(doctor._id, doctor);
+      history.push("/doctors");
+    } else {
+      createDoctor(doctor);
+      history.push("/doctors");
+    }
   };
 
   const validateUserData = (userData) => {
@@ -79,7 +100,6 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
   return (
     <>
       <CRow
@@ -91,10 +111,10 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
       >
         <CCol xs="12" md="8">
           <CCard>
-            {user.name ? (
+            {doctor.name ? (
               <CCardHeader>
                 Edit patient Information
-                <strong> {user.name}</strong>
+                <strong> {doctor.name}</strong>
               </CCardHeader>
             ) : (
               <CCardHeader>New Doctor Registration</CCardHeader>
@@ -105,13 +125,13 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                 encType="multipart/form-data"
                 className="form-horizontal"
               >
-                {user.name && (
+                {doctor.name && (
                   <CFormGroup row>
                     <CCol md="3">
                       <CLabel>Email</CLabel>
                     </CCol>
                     <CCol xs="12" md="9">
-                      <p className="form-control-static">{user.email}</p>
+                      <p className="form-control-static">{doctor.email}</p>
                     </CCol>
                   </CFormGroup>
                 )}
@@ -121,8 +141,9 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput
+                      id="text-input"
                       name="name"
-                      value={user.name}
+                      value={doctor.name}
                       placeholder="Text"
                       onChange={handleChange}
                     />
@@ -137,10 +158,11 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput
+                      id="text-input"
                       name="lastName"
                       placeholder="Last Name"
                       onChange={handleChange}
-                      value={user.lastName}
+                      value={doctor.lastName}
                     />
                     {errors["lastName"] && (
                       <CFormText color="danger">{errors["lastName"]}</CFormText>
@@ -158,7 +180,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       onChange={handleChange}
                       placeholder="Enter Email"
                       autoComplete="email"
-                      value={user.email}
+                      value={doctor.email}
                     />
                     <CFormText className="help-block">
                       {errors["email"] && (
@@ -178,10 +200,29 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       placeholder="Enter Phone number"
                       autoComplete="email"
                       onChange={handleChange}
-                      value={user.phoneNumber}
+                      value={doctor.phoneNumber}
                     />
                     <CFormText className="help-block">
                       Patient/Doctor Phone number
+                    </CFormText>
+                  </CCol>
+                </CFormGroup>
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel htmlFor="textarea-input">About</CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CTextarea
+                      name="about"
+                      id="about"
+                      value={doctor.about}
+                      rows="9"
+                      onChange={handleChange}
+                      placeholder="About..."
+                      maxLength="225"
+                    />
+                    <CFormText className="help-block">
+                      Max 255 characters
                     </CFormText>
                   </CCol>
                 </CFormGroup>
@@ -196,7 +237,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="age"
                       onChange={handleChange}
                       placeholder="date"
-                      value={user.age}
+                      value={doctor.age}
                     />
                   </CCol>
                 </CFormGroup>
@@ -210,7 +251,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="country"
                       onChange={handleChange}
                       placeholder="Country"
-                      value={user.country}
+                      value={doctor.country}
                     />
                   </CCol>
                 </CFormGroup>
@@ -224,21 +265,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="city"
                       onChange={handleChange}
                       placeholder="City"
-                      value={user.city}
-                    />
-                  </CCol>
-                </CFormGroup>
-                <CFormGroup row>
-                  <CCol md="3">
-                    <CLabel htmlFor="date-input">Street Number</CLabel>
-                  </CCol>
-                  <CCol xs="12" md="9">
-                    <CInput
-                      type="text"
-                      name="streetNumber"
-                      onChange={handleChange}
-                      placeholder="Street Number"
-                      value={user.streetNumber}
+                      value={doctor.city}
                     />
                   </CCol>
                 </CFormGroup>
@@ -252,21 +279,21 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="profileImage"
                       onChange={handleChange}
                       placeholder="Profile Picture URL"
-                      value={user.profileImage}
+                      value={doctor.profileImage}
                     />
                   </CCol>
                 </CFormGroup>
                 <CFormGroup row>
                   <CCol md="3">
-                    <CLabel htmlFor="date-input">Kit Identifier</CLabel>
+                    <CLabel htmlFor="date-input">Password</CLabel>
                   </CCol>
                   <CCol xs="12" md="9">
                     <CInput
-                      type="text"
-                      name="kitIdentifier"
+                      type="password"
+                      name="password"
                       onChange={handleChange}
-                      placeholder="Kit Identifier (RFID)"
-                      value={user.kitIdentifier}
+                      placeholder="Password"
+                      value={doctor.password}
                     />
                   </CCol>
                 </CFormGroup>
@@ -280,7 +307,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="status"
                       id="select"
                       onChange={handleChange}
-                      defaultValue={user.status}
+                      defaultValue={doctor.status}
                     >
                       <option value="Active">Active</option>
                       <option value="Pending">Pending</option>
@@ -297,8 +324,8 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       custom
                       name="gender"
                       id="select"
-                      defaultValue={user.gender}
                       onChange={handleChange}
+                      defaultValue={doctor.gender}
                     >
                       <option>Choose...</option>
                       <option value="M">M</option>
@@ -312,13 +339,12 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
               <CButton size="sm" color="primary" onClick={handleSubmit}>
                 <CIcon name="cil-scrubber" /> Submit
               </CButton>
-              {user._id && (
+              {doctor._id && (
                 <CButton
                   type="reset"
                   size="sm"
                   color="danger"
                   style={{ marginLeft: "0.5rem" }}
-                  onClick={() => setUser({ ...user })}
                 >
                   <CIcon name="cil-ban" /> Reset
                 </CButton>
@@ -333,15 +359,15 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users.list,
     loading: state.users.loading,
     doctors: state.doctors.list,
   };
 };
 
 const mapDispatchToProps = {
-  loadUsers: () => loadUsers(),
-  updateUserInfo: (id, user) => updateUserInfo(id, user),
+  createDoctor: (doctor) => createDoctor(doctor),
+  loadDoctors: () => loadDoctors(),
+  updateDoctorInfo: (id, doctor) => updateDoctorInfo(id, doctor),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

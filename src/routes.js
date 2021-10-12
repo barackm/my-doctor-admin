@@ -1,5 +1,6 @@
 import React from "react";
-import Doctors from "./views/users/Doctors";
+import Doctor from "./views/doctors/Doctor";
+import Doctors from "./views/doctors/Doctors";
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -61,6 +62,7 @@ const Widgets = React.lazy(() => import("./views/widgets/Widgets"));
 const Users = React.lazy(() => import("./views/users/Users"));
 const User = React.lazy(() => import("./views/users/User"));
 const EditUser = React.lazy(() => import("./views/users/Edit"));
+const EditDoctor = React.lazy(() => import("./views/doctors/Edit"));
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -119,12 +121,30 @@ const routes = [
   { path: "/notifications/toaster", name: "Toaster", component: Toaster },
   { path: "/widgets", name: "Widgets", component: Widgets },
   { path: "/users", exact: true, name: "Users", component: Users },
-  { path: "/users/:id", exact: true, name: "User Details", component: User },
+  {
+    path: "/users/:id/",
+    exact: true,
+    name: "User Details",
+    component: User,
+  },
+  {
+    path: "/doctors/:id",
+    exact: true,
+    name: "Doctor Details",
+    component: Doctor,
+  },
+
   {
     path: "/users/:id/edit",
     exact: true,
     name: "Edit User",
     component: EditUser,
+  },
+  {
+    path: "/doctors/:id/edit",
+    exact: true,
+    name: "Edit Doctor",
+    component: EditDoctor,
   },
   {
     path: "/doctors/",

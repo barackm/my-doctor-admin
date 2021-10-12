@@ -2,7 +2,7 @@ import http from "src/services/http";
 
 import * as actions from "../actions/api";
 
-const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
+const apiEndPoint = process.env.REACT_APP_API_ENDPOINT;
 
 const auth =
   ({ dispatch }) =>
@@ -12,6 +12,7 @@ const auth =
     const { onStart, url, data, method, onSuccess, onError } = action.payload;
     next(action);
     if (onStart) dispatch({ type: onStart });
+
     try {
       const response = await http.request({
         baseURL: apiEndPoint,

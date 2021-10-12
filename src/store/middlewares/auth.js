@@ -1,9 +1,10 @@
 import http from "src/services/http";
-import storage from "src/utils/storage";
 
 import * as actions from "../actions/auth";
+import jwtDecode from "jwt-decode";
+import storage from "../../utils/storage";
 
-const apiEndPoint = "https://aqueous-gorge-50977.herokuapp.com/api";
+const apiEndPoint = process.env.REACT_APP_API_ENDPOINT;
 
 const api =
   ({ dispatch }) =>
@@ -20,13 +21,17 @@ const api =
         data,
         method,
       });
-      console.log(response.headers);
-      //   storage.setAuthToken(response.headers["X-Auth-Token"]);
+      const authToken = response.data;
+      // throw an error if the decoded token has the property isAdmin to false
+      const decodedToken = jwtDecode(authToken);
+      if (!decodedToken.isAdmin)
+        throw new Error("You don't have the right permission to login.");
+      storage.setAuthToken(authToken);
       onSuccess
-        ? dispatch({ type: onSuccess, payload: response.data })
+        ? dispatch({ type: onSuccess, payload: decodedToken })
         : dispatch({
             type: actions.authApiCallSucceded.type,
-            payload: response.data,
+            payload: decodedToken,
           });
     } catch (error) {
       onError
