@@ -37,7 +37,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
   // const cName = 'doctors';
 
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/doctors?page=${newPage}`);
+    // currentPage !== newPage && history.push(`/doctors?page=${newPage}`);
   };
 
   useEffect(() => {
