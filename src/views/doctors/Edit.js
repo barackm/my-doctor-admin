@@ -59,12 +59,12 @@ const Edit = ({
     const doctor = doctors.find(
       (doctor) => doctor._id.toString() === match.params.id
     );
-    console.log(doctor);
     if (!doctor) {
       history.replace("/doctors");
     }
 
     setDoctor({ ...doctor, password: "" });
+    // eslint-disable-next-line
   }, []);
 
   const handleChange = (e) => {
@@ -307,25 +307,11 @@ const Edit = ({
                       name="status"
                       id="select"
                       onChange={handleChange}
+                      defaultValue={doctor.status}
                     >
-                      <option
-                        value="Active"
-                        selected={doctor.status === "Active"}
-                      >
-                        Active
-                      </option>
-                      <option
-                        value="Pending"
-                        selected={doctor.status === "Pending"}
-                      >
-                        Pending
-                      </option>
-                      <option
-                        value="Inactive"
-                        selected={doctor.status === "Inactive"}
-                      >
-                        Inactive
-                      </option>
+                      <option value="Active">Active</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Inactive">Inactive</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>
@@ -339,14 +325,11 @@ const Edit = ({
                       name="gender"
                       id="select"
                       onChange={handleChange}
+                      defaultValue={doctor.gender}
                     >
-                      <option selected={doctor.gender === ""}>Choose...</option>
-                      <option value="M" selected={doctor.gender === "M"}>
-                        M
-                      </option>
-                      <option value="F" selected={doctor.gender === "F"}>
-                        F
-                      </option>
+                      <option>Choose...</option>
+                      <option value="M">M</option>
+                      <option value="F">F</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>

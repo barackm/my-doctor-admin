@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as actions from "../actions/api";
+import jwtDecode from "jwt-decode";
 
 const slice = createSlice({
   name: "users",
@@ -23,7 +24,7 @@ const slice = createSlice({
       users.loading = false;
     },
     userDeleted: (users, action) => {
-      users.list = users.list.filter((user) => user.id !== action.payload);
+      users.list = users.list.filter((user) => user._id !== action.payload._id);
       users.loading = false;
     },
     userDeletionFailed: (users, action) => {
@@ -32,10 +33,12 @@ const slice = createSlice({
     },
 
     userInfoUpdated: (users, action) => {
+      const token = action.payload;
+      const decodedToken = jwtDecode(token);
       const index = users.list.findIndex(
-        (user) => user.id === action.payload.id
+        (user) => user._id === decodedToken._id
       );
-      users.list[index] = action.payload;
+      users.list[index] = decodedToken;
       users.loading = false;
     },
 
@@ -82,7 +85,6 @@ export const deleteUser = (id) => (dispatch) => {
 };
 
 export const updateUserInfo = (id, data) => (dispatch) => {
-  console.log(data);
   dispatch(
     actions.apiCallBegan({
       onStart: usersRequested.type,

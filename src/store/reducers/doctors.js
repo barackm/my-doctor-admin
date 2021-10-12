@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as actions from "../actions/api";
+import jwtDecode from "jwt-decode";
 
 const slice = createSlice({
   name: "doctors",
@@ -23,17 +24,18 @@ const slice = createSlice({
     },
 
     doctorCreated: (doctors, action) => {
-      doctors.list.push(action.payload);
+      doctors.list.push(jwtDecode(action.payload));
     },
+
     doctorCreationFailed: (doctors, action) => {
       doctors.error = action.payload;
       doctors.loading = false;
     },
     doctorInfoUpdated: (doctors, action) => {
       const index = doctors.list.findIndex(
-        (doctor) => doctor.id === action.payload.id
+        (doctor) => doctor._id === jwtDecode(action.payload)._id
       );
-      doctors.list[index] = action.payload;
+      doctors.list[index] = jwtDecode(action.payload);
     },
 
     doctorInfoUpdateFailed: (doctors, action) => {

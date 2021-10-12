@@ -14,20 +14,27 @@ import {
   CRow,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import checkAuthentication from "src/utils/checkAuthentication";
 import { connect } from "react-redux";
 
 import Toaster from "../../../reusable/Toaster";
 import { loginUser } from "src/store/reducers/auth";
+import storage from "src/utils/storage";
+import jwtDecode from "jwt-decode";
 
-const Login = ({ history, loginUser, error }) => {
+const Login = ({ history, loginUser, error, currentUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: null, password: null });
   useEffect(() => {
-    checkAuthentication(history);
-  }, [history]);
+    const token = storage.getAuthToken();
+    if (token && jwtDecode(token).isAdmin) {
+      history.replace("/");
+    }
+  });
 
+  if (currentUser) {
+    history.replace("/");
+  }
   const handleChange = ({ target }) => {
     if (target.name === "email") {
       setEmail(target.value);
@@ -141,6 +148,7 @@ const Login = ({ history, loginUser, error }) => {
 
 const mapStateToProps = (state) => ({
   error: state.auth.error,
+  currentUser: state.auth.currentUser,
 });
 const mapDispatchToProps = {
   loginUser: (user) => loginUser(user),

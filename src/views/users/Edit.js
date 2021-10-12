@@ -48,6 +48,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
       history.replace("/users");
     }
     setUser({ ...user, ...foundUser });
+    // eslint-disable-next-line
   }, []);
 
   const handleChange = (e) => {
@@ -78,6 +79,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+
   return (
     <>
       <CRow
@@ -278,25 +280,11 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       name="status"
                       id="select"
                       onChange={handleChange}
+                      defaultValue={user.status}
                     >
-                      <option
-                        value="Active"
-                        selected={user.status === "Active"}
-                      >
-                        Active
-                      </option>
-                      <option
-                        value="Pending"
-                        selected={user.status === "Pending"}
-                      >
-                        Pending
-                      </option>
-                      <option
-                        value="Inactive"
-                        selected={user.status === "Inactive"}
-                      >
-                        Inactive
-                      </option>
+                      <option value="Active">Active</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Inactive">Inactive</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>
@@ -309,15 +297,12 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
                       custom
                       name="gender"
                       id="select"
+                      defaultValue={user.gender}
                       onChange={handleChange}
                     >
-                      <option selected={user.gender === ""}>Choose...</option>
-                      <option value="M" selected={user.gender === "M"}>
-                        M
-                      </option>
-                      <option value="F" selected={user.gender === "F"}>
-                        F
-                      </option>
+                      <option>Choose...</option>
+                      <option value="M">M</option>
+                      <option value="F">F</option>
                     </CSelect>
                   </CCol>
                 </CFormGroup>
