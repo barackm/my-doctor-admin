@@ -34,9 +34,7 @@ const Users = (props) => {
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
 
-  const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`);
-  };
+  const pageChange = (newPage) => {};
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
