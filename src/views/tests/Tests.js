@@ -12,7 +12,6 @@ import {
 } from "@coreui/react";
 
 import { connect } from "react-redux";
-import { loadUsers } from "src/store/reducers/users";
 import { loadTests } from "src/store/reducers/tests";
 import moment from "moment";
 
@@ -84,6 +83,7 @@ const Tests = (props) => {
                 { key: "heartRate", _classes: "font-weight-bold" },
                 "bloodPressure",
                 "temperature",
+                "createdAt",
                 "status",
               ]}
               hover
