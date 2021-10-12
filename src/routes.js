@@ -1,6 +1,7 @@
 import React from "react";
 import Doctor from "./views/doctors/Doctor";
 import Doctors from "./views/doctors/Doctors";
+import Tests from "./views/tests/Tests";
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -151,6 +152,18 @@ const routes = [
     exact: true,
     name: "Doctors",
     component: Doctors,
+  },
+  {
+    path: "/tests/",
+    exact: true,
+    name: "Tests",
+    component: Tests,
+  },
+  {
+    path: "/tests/:id",
+    exact: true,
+    name: "Tests",
+    component: Tests,
   },
 ];
 
