@@ -29,7 +29,7 @@ const getBadge = (status) => {
 const Emergencies = ({ loadEmergencies, emergencies }) => {
   useEffect(() => {
     loadEmergencies();
-  }, []);
+  }, []); // eslint-disable-line
 
   return (
     <CRow>

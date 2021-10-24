@@ -10,8 +10,9 @@ import {
   CRow,
   CPagination,
 } from "@coreui/react";
+import Toaster from "../notifications/toaster/Toaster";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadUsers } from "src/store/reducers/users";
 
 const getBadge = (status) => {
@@ -33,6 +34,7 @@ const Users = (props) => {
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  const error = useSelector((state) => state.users.error);
 
   const pageChange = (newPage) => {};
 
@@ -43,6 +45,7 @@ const Users = (props) => {
 
   return (
     <CRow>
+      {error && <Toaster title="Update error" message={error} show error />}
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
@@ -91,6 +94,7 @@ const mapStateToProps = (state) => {
   return {
     users: state.users.list,
     loading: state.users.loading,
+    error: state.users.error,
   };
 };
 
