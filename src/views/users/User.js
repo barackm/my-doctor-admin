@@ -21,7 +21,7 @@ const User = ({ match, users, history, loadUsers, deleteUser }) => {
     loadUsers();
     return () => {};
   }, [loadUsers]);
-  const user = users.find((user) => user._id.toString() === match.params.id);
+  const user = users.find((user) => user._id === match.params.id);
   if (!user) {
     return history.push("/users");
   }
@@ -76,7 +76,8 @@ const User = ({ match, users, history, loadUsers, deleteUser }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                onClick={() => handleDeleteUser()}
+                to="/users"
+                onClick={handleDeleteUser}
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove User</span>
