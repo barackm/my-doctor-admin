@@ -64,6 +64,8 @@ const {
   doctorInfoUpdated,
   doctorsReceived,
   doctorsRequested,
+  doctorDeleted,
+  doctorDeletionFailed,
   doctorsRequestFailed,
   doctorCreated,
   doctorCreationFailed,
