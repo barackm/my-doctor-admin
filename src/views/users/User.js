@@ -25,7 +25,10 @@ const User = ({ match, users, history, loadUsers }) => {
   if (!user) {
     return history.push("/users");
   }
-  const handleDeleteUser = () => {};
+  const handleDeleteUser = () => {
+    // setModelShown(true)
+    
+  };
 
   return (
     <CRow>
@@ -72,7 +75,7 @@ const User = ({ match, users, history, loadUsers }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                onClick={() => setModelShown(true)}
+                onClick={() => }
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove User</span>
