@@ -31,6 +31,18 @@ const slice = createSlice({
       doctors.error = action.payload;
       doctors.loading = false;
     },
+
+    doctorDeleted: (doctors, action) => {
+      doctors.list = doctors.list.filter(
+        (user) => user._id !== action.payload._id
+      );
+      doctors.loading = false;
+    },
+
+    doctorDeletionFailed: (doctors, action) => {
+      doctors.error = action.payload;
+      doctors.loading = false;
+    },
     doctorInfoUpdated: (doctors, action) => {
       const index = doctors.list.findIndex(
         (doctor) => doctor._id === jwtDecode(action.payload)._id
@@ -65,6 +77,19 @@ export const loadDoctors = () => (dispatch) => {
       onSuccess: doctorsReceived.type,
       url: "/doctors",
       method: "GET",
+    })
+  );
+};
+
+export const deleteDoctor = (id) => (dispatch) => {
+  console.log(id);
+  dispatch(
+    actions.apiCallBegan({
+      onStart: doctorsRequested.type,
+      onError: doctorDeletionFailed.type,
+      onSuccess: doctorDeleted.type,
+      url: `/doctors/${id}`,
+      method: "DELETE",
     })
   );
 };
