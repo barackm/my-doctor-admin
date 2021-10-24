@@ -12,7 +12,7 @@ import {
 } from "@coreui/react";
 import Toaster from "../notifications/toaster/Toaster";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadUsers } from "src/store/reducers/users";
 
 const getBadge = (status) => {
@@ -29,12 +29,12 @@ const getBadge = (status) => {
 };
 
 const Users = (props) => {
-  const { loadUsers, users, error } = props;
-  console.log(error);
+  const { loadUsers, users } = props;
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  const error = useSelector((state) => state.users.error);
 
   const pageChange = (newPage) => {};
 

@@ -9,8 +9,7 @@ import {
 import { connect } from "react-redux";
 import { loadEmergencies } from "src/store/reducers/emergencies";
 
-const mapAPIkey = "AIzaSyAvJD6rRnSrWdStEIWzomkxcH4KgNzr7MY";
-console.log(mapAPIkey);
+const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
 const Localisation = compose(
   withProps({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${mapAPIkey}=3.exp&libraries=geometry,drawing,places`,
