@@ -15,7 +15,7 @@ import { loadUsers } from "src/store/reducers/users";
 import { connect } from "react-redux";
 import { deleteDoctor, loadDoctors } from "src/store/reducers/doctors";
 
-const Doctor = ({ match, history, loadDoctors, doctors }) => {
+const Doctor = ({ match, history, loadDoctors, doctors, deleteDoctor }) => {
   const [modelShown, setModelShown] = useState(false);
   useEffect(() => {
     loadDoctors();
@@ -28,13 +28,14 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
   }
   const handleDeleteDoctor = () => {
     // setModelShown(true);
-    deleteDoctor;
+    deleteDoctor(match.params.id);
     // console.log("deleting user...");
     // console.log(
     //   `/${match.params.name === "d" ? "doctors" : "users"}/${match.params.id}/${
     //     match.params.name
     //   }/edit`
     // );
+    history.push("/doctors");
   };
 
   return (
@@ -74,7 +75,7 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                onClick={() => handleDeleteDoctor()}
+                onClick={handleDeleteDoctor}
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove Doctor</span>
