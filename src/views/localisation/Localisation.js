@@ -7,7 +7,7 @@ import {
   Marker,
 } from "react-google-maps";
 import { connect } from "react-redux";
-import emergencies, { loadEmergencies } from "src/store/reducers/emergencies";
+import { loadEmergencies } from "src/store/reducers/emergencies";
 
 const mapAPIkey = "AIzaSyAvJD6rRnSrWdStEIWzomkxcH4KgNzr7MY";
 console.log(mapAPIkey);
@@ -38,7 +38,7 @@ const Localisation = compose(
       lat: latitude,
       lng: longitude,
     });
-  }, []);
+  }, []); // eslint-disable-line
   return (
     <GoogleMap
       defaultZoom={8}

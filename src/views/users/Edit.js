@@ -20,7 +20,7 @@ import CIcon from "@coreui/icons-react";
 import { loadUsers, updateUserInfo } from "src/store/reducers/users";
 import { connect } from "react-redux";
 
-const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
+const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
   const [errors, setErrors] = React.useState({});
   const [user, setUser] = React.useState({
     _id: "",
