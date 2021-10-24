@@ -6,6 +6,7 @@ import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 const TheLayout = ({ history }) => {
   useEffect(() => {
     const token = storage.getAuthToken();
+    window.appHistory = history;
     if (!token || !jwtDecode(token).isAdmin) return history.replace("/login");
   }, [history]);
   return (

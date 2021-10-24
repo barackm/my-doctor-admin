@@ -2,6 +2,8 @@ import React from "react";
 import Doctor from "./views/doctors/Doctor";
 import Doctors from "./views/doctors/Doctors";
 import Tests from "./views/tests/Tests";
+import Localisation from "./views/localisation/Localisation";
+import Emergencies from "./views/emergencies/Emergencies";
 
 const Toaster = React.lazy(() =>
   import("./views/notifications/toaster/Toaster")
@@ -164,6 +166,18 @@ const routes = [
     exact: true,
     name: "Tests",
     component: Tests,
+  },
+  {
+    path: "/localisation/:id",
+    exact: true,
+    name: "Localisation",
+    component: Localisation,
+  },
+  {
+    path: "/emergencies",
+    exact: true,
+    name: "Emergencies",
+    component: Emergencies,
   },
 ];
 

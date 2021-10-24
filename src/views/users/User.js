@@ -19,19 +19,13 @@ const User = ({ match, users, history, loadUsers }) => {
   const [modelShown, setModelShown] = useState(false);
   useEffect(() => {
     loadUsers();
+    return () => {};
   }, [loadUsers]);
   const user = users.find((user) => user._id.toString() === match.params.id);
   if (!user) {
     return history.push("/users");
   }
-  const handleDeleteUser = () => {
-    // console.log("deleting user...");
-    // console.log(
-    //   `/${match.params.name === "d" ? "doctors" : "users"}/${match.params.id}/${
-    //     match.params.name
-    //   }/edit`
-    // );
-  };
+  const handleDeleteUser = () => {};
 
   return (
     <CRow>
