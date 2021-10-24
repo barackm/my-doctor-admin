@@ -8,7 +8,9 @@ const auth =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type !== actions.apiCallBegan.type) return next(action);
+    if (action.type !== actions.apiCallBegan.type) {
+      return next(action);
+    }
     const { onStart, url, data, method, onSuccess, onError } = action.payload;
     next(action);
     if (onStart) dispatch({ type: onStart });

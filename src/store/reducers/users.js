@@ -73,6 +73,7 @@ export const loadUsers = () => (dispatch) => {
 };
 
 export const deleteUser = (id) => (dispatch) => {
+  console.log(id);
   dispatch(
     actions.apiCallBegan({
       onStart: usersRequested.type,

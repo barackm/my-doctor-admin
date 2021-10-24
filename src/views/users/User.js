@@ -12,10 +12,10 @@ import CIcon from "@coreui/icons-react";
 
 import Model from "../../reusable/Model";
 import { loadUsers } from "src/store/reducers/users";
-import { connect } from "react-redux";
-import { loadDoctors } from "src/store/reducers/doctors";
+import { connect, useDispatch } from "react-redux";
+import { deleteUser } from "src/store/reducers/users";
 
-const User = ({ match, users, history, loadUsers }) => {
+const User = ({ match, users, history, loadUsers, deleteUser }) => {
   const [modelShown, setModelShown] = useState(false);
   useEffect(() => {
     loadUsers();
@@ -28,6 +28,7 @@ const User = ({ match, users, history, loadUsers }) => {
   const handleDeleteUser = () => {
     // setModelShown(true)
     console.log("thanks");
+    deleteUser(match.params.id);
   };
 
   return (
@@ -171,7 +172,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   loadUsers: () => loadUsers(),
-  loadDoctors: () => loadDoctors(),
+  // loadDoctors: () => loadDoctors(),
+  deleteUser: (id) => deleteUser(id),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);
