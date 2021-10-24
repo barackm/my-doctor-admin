@@ -11,7 +11,6 @@ import {
 import CIcon from "@coreui/icons-react";
 
 import Model from "../../reusable/Model";
-import { loadUsers } from "src/store/reducers/users";
 import { connect } from "react-redux";
 import { deleteDoctor, loadDoctors } from "src/store/reducers/doctors";
 
