@@ -34,7 +34,7 @@ const slice = createSlice({
 
     doctorDeleted: (doctors, action) => {
       doctors.list = doctors.list.filter(
-        (user) => user._id !== action.payload._id
+        (doctor) => doctor._id !== action.payload._id
       );
       doctors.loading = false;
     },

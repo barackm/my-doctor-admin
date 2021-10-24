@@ -13,7 +13,7 @@ import CIcon from "@coreui/icons-react";
 import Model from "../../reusable/Model";
 import { loadUsers } from "src/store/reducers/users";
 import { connect } from "react-redux";
-import { loadDoctors } from "src/store/reducers/doctors";
+import { deleteDoctor, loadDoctors } from "src/store/reducers/doctors";
 
 const Doctor = ({ match, history, loadDoctors, doctors }) => {
   const [modelShown, setModelShown] = useState(false);
@@ -26,7 +26,9 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
   if (!doctor) {
     return history.push("/doctors");
   }
-  const handleDeleteUser = () => {
+  const handleDeleteDoctor = () => {
+    // setModelShown(true);
+    deleteDoctor;
     // console.log("deleting user...");
     // console.log(
     //   `/${match.params.name === "d" ? "doctors" : "users"}/${match.params.id}/${
@@ -42,7 +44,7 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
           <Model
             onHideModel={setModelShown}
             modelShown={modelShown}
-            onAccept={handleDeleteUser}
+            onAccept={handleDeleteDoctor}
           />
         )}
         <CCard>
@@ -72,7 +74,7 @@ const Doctor = ({ match, history, loadDoctors, doctors }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                onClick={() => setModelShown(true)}
+                onClick={() => handleDeleteDoctor()}
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove Doctor</span>
@@ -155,8 +157,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  loadUsers: () => loadUsers(),
+  // loadUsers: () => loadUsers(),
   loadDoctors: () => loadDoctors(),
+  deleteDoctor: (id) => deleteDoctor(id),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Doctor);
