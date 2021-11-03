@@ -63,7 +63,12 @@ const Edit = ({
       history.replace("/doctors");
     }
 
-    setDoctor({ ...doctor, password: "" });
+    setDoctor({
+      ...doctor,
+      password: "",
+      status: doctor.status,
+      gender: doctor.status,
+    });
     // eslint-disable-next-line
   }, []);
 

@@ -34,8 +34,6 @@ const Users = (props) => {
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
-  const error = useSelector((state) => state.users.error);
-
   const pageChange = (newPage) => {};
 
   useEffect(() => {
@@ -45,7 +43,6 @@ const Users = (props) => {
 
   return (
     <CRow>
-      {error && <Toaster title="Update error" message={error} show error />}
       <CCol xl={12}>
         <CCard>
           <CCardHeader>
