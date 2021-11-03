@@ -12,7 +12,7 @@ import CIcon from "@coreui/icons-react";
 
 import Model from "../../reusable/Model";
 import { loadUsers } from "src/store/reducers/users";
-import { connect, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { deleteUser } from "src/store/reducers/users";
 
 const User = ({ match, users, history, loadUsers, deleteUser }) => {
@@ -27,7 +27,6 @@ const User = ({ match, users, history, loadUsers, deleteUser }) => {
   }
   const handleDeleteUser = () => {
     // setModelShown(true)
-    console.log("thanks");
     deleteUser(match.params.id);
   };
 

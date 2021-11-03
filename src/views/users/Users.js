@@ -10,9 +10,8 @@ import {
   CRow,
   CPagination,
 } from "@coreui/react";
-import Toaster from "../notifications/toaster/Toaster";
 
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { loadUsers } from "src/store/reducers/users";
 
 const getBadge = (status) => {
