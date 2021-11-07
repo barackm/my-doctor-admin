@@ -12,7 +12,7 @@ import { loadEmergencies } from "src/store/reducers/emergencies";
 const mapAPIkey = process.env.REACT_APP_MAP_API_KEY;
 const Localisation = compose(
   withProps({
-    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${mapAPIkey}=3.exp&libraries=geometry,drawing,places`,
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${mapAPIkey}`,
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
     mapElement: <div style={{ height: `100%` }} />,
