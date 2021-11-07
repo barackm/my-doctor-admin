@@ -3,7 +3,7 @@ import store from "src/store/configureStore";
 import * as actions from "../store/actions/actionTypes";
 import emergencySound from "../assets/emergency.mp3";
 
-const apiEndpoint = "http://localhost:5000";
+const apiEndpoint = "https://aqueous-gorge-50977.herokuapp.com/";
 
 const socket = io(apiEndpoint);
 
