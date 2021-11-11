@@ -11,7 +11,7 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadTests } from "src/store/reducers/tests";
 import moment from "moment";
 
@@ -29,16 +29,18 @@ const getBadge = (status) => {
 };
 
 const Tests = (props) => {
-  const { loadTests, tests, match } = props;
+  const { loadTests, match } = props;
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  const tests = useSelector((state) => state.tests.list);
 
   const pageChange = (newPage) => {};
 
   useEffect(() => {
     const patientId = match.params.id;
+    console.log(patientId);
     if (patientId) {
       loadTests(patientId);
     } else {
@@ -126,4 +128,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tests);
-
