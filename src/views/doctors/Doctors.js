@@ -13,7 +13,7 @@ import {
 } from "@coreui/react";
 
 import CIcon from "@coreui/icons-react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadDoctors } from "src/store/reducers/doctors";
 
 const getBadge = (status) => {
@@ -34,6 +34,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  const loading = useSelector((state) => state.doctors.loading);
   // const cName = 'doctors';
 
   const pageChange = (newPage) => {
@@ -68,6 +69,7 @@ const Doctors = ({ loadDoctors, doctors }) => {
           <CCardBody>
             <CDataTable
               items={doctors}
+              loading={loading}
               fields={[
                 { key: "name", _classes: "font-weight-bold" },
                 { key: "lastName", _classes: "font-weight-bold" },

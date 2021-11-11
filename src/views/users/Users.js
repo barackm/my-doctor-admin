@@ -11,7 +11,7 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadUsers } from "src/store/reducers/users";
 
 const getBadge = (status) => {
@@ -34,7 +34,7 @@ const Users = (props) => {
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
   const pageChange = (newPage) => {};
-
+  const loading = useSelector((state) => state.users.loading);
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     loadUsers();
@@ -51,6 +51,7 @@ const Users = (props) => {
           <CCardBody>
             <CDataTable
               items={users}
+              loading={loading}
               fields={[
                 { key: "name", _classes: "font-weight-bold" },
                 { key: "lastName", _classes: "font-weight-bold" },

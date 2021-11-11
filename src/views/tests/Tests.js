@@ -35,6 +35,7 @@ const Tests = (props) => {
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
   const tests = useSelector((state) => state.tests.list);
+  const loading = useSelector((state) => state.tests.loading);
 
   const pageChange = (newPage) => {};
 
@@ -63,6 +64,7 @@ const Tests = (props) => {
           </CCardHeader>
           <CCardBody>
             <CDataTable
+              loading={loading}
               items={tests.map((test) => {
                 return {
                   _id: test._id,
