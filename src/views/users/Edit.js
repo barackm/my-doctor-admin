@@ -19,6 +19,7 @@ import CIcon from "@coreui/icons-react";
 
 import { loadUsers, updateUserInfo } from "src/store/reducers/users";
 import { connect } from "react-redux";
+import Toaster from "src/reusable/Toaster";
 
 const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
   const [errors, setErrors] = React.useState({});
@@ -60,6 +61,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
     validateUserData(user);
     if (errors["name"] || errors["email" || errors["lastName"]]) return;
     updateUserInfo(user._id, user);
+    if (error) return;
     history.push("/users");
   };
 
@@ -82,6 +84,9 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
 
   return (
     <>
+      {error && (
+        <Toaster title="User action Failed" message={error} show error />
+      )}
       <CRow
         style={{
           display: "flex",
