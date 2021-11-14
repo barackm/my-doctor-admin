@@ -48,7 +48,12 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
     if (!foundUser) {
       history.replace("/users");
     }
-    setUser({ ...user, ...foundUser });
+    setUser({
+      ...user,
+      ...foundUser,
+      status: foundUser.status,
+      gender: foundUser.gender,
+    });
     // eslint-disable-next-line
   }, []);
 
