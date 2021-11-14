@@ -30,10 +30,17 @@ const auth =
           });
     } catch (error) {
       onError
-        ? dispatch({ type: onError, payload: error.message })
+        ? dispatch({
+            type: onError,
+            payload: error.response
+              ? error.response.data.message || error.response.data
+              : error.message,
+          })
         : dispatch({
             type: actions.apiCallFailed.type,
-            payload: error.message,
+            payload: error.response
+              ? error.response.data.message || error.response.data
+              : error.message,
           });
     }
   };

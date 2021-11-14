@@ -80,6 +80,7 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
     return Object.keys(newErrors).length === 0;
   };
 
+  console.log(error);
   return (
     <>
       {error && (
@@ -339,6 +340,7 @@ const mapStateToProps = (state) => {
     users: state.users.list,
     loading: state.users.loading,
     doctors: state.doctors.list,
+    error: state.users.error,
   };
 };
 
