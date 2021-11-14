@@ -61,8 +61,6 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
     validateUserData(user);
     if (errors["name"] || errors["email" || errors["lastName"]]) return;
     updateUserInfo(user._id, user);
-    if (error) return;
-    history.push("/users");
   };
 
   const validateUserData = (userData) => {
