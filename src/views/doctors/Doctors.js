@@ -36,17 +36,15 @@ const Doctors = ({ loadDoctors, doctors, error }) => {
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
   const loading = useSelector((state) => state.doctors.loading);
-  // const cName = 'doctors';
 
-  const pageChange = (newPage) => {
-    // currentPage !== newPage && history.push(`/doctors?page=${newPage}`);
-  };
+  const pageChange = (newPage) => {};
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     loadDoctors();
   }, [currentPage, page, loadDoctors]);
 
+  console.log(doctors);
   return (
     <>
       {error && (
@@ -73,7 +71,7 @@ const Doctors = ({ loadDoctors, doctors, error }) => {
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={doctors}
+                items={doctors || []}
                 loading={loading}
                 fields={[
                   { key: "name", _classes: "font-weight-bold" },

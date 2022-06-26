@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CBadge,
   CDropdown,
@@ -12,11 +12,22 @@ import storage from "src/utils/storage";
 import jwtDecode from "jwt-decode";
 
 const TheHeaderDropdown = () => {
+  const [currentUser, setCurrentUser] = React.useState({});
   const handleLogout = () => {
     storage.removeAuthToken();
     window.location.href = "/login";
   };
-  const currentUser = jwtDecode(storage.getAuthToken());
+  useEffect(() => {
+    try {
+      const token = storage.getAuthToken();
+      if (token) {
+        const decoded = jwtDecode(token);
+        setCurrentUser(decoded);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   return (
     <CDropdown inNav className="c-header-nav-items mx-2" direction="down">

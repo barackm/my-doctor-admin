@@ -4,21 +4,34 @@ import storage from "src/utils/storage";
 import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 
 const TheLayout = ({ history }) => {
+  const [isFetching, setIsFetching] = React.useState(true);
   useEffect(() => {
     const token = storage.getAuthToken();
-    window.appHistory = history;
-    if (!token || !jwtDecode(token).isAdmin) return history.replace("/login");
+    if (token) {
+      const decoded = jwtDecode(token);
+      if (!decoded.isAdmin) {
+        history.replace("/login");
+      }
+      setIsFetching(false);
+    } else {
+      setIsFetching(false);
+      history.replace("/login");
+    }
   }, [history]);
   return (
     <div className="c-app c-default-layout">
-      <TheSidebar />
-      <div className="c-wrapper">
-        <TheHeader />
-        <div className="c-body">
-          <TheContent />
-        </div>
-        <TheFooter />
-      </div>
+      {!isFetching && (
+        <>
+          <TheSidebar />
+          <div className="c-wrapper">
+            <TheHeader />
+            <div className="c-body">
+              <TheContent />
+            </div>
+            <TheFooter />
+          </div>
+        </>
+      )}
     </div>
   );
 };
