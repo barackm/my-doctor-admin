@@ -71,7 +71,7 @@ const Doctors = ({ loadDoctors, doctors, error }) => {
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={doctors || []}
+                items={Array.isArray(doctors) ? doctors : []}
                 loading={loading}
                 fields={[
                   { key: "name", _classes: "font-weight-bold" },
