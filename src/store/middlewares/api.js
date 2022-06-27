@@ -8,7 +8,9 @@ const auth =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
-    if (action.type !== actions.apiCallBegan.type) return next(action);
+    if (action.type !== actions.apiCallBegan.type) {
+      return next(action);
+    }
     const { onStart, url, data, method, onSuccess, onError } = action.payload;
     next(action);
     if (onStart) dispatch({ type: onStart });
@@ -28,10 +30,17 @@ const auth =
           });
     } catch (error) {
       onError
-        ? dispatch({ type: onError, payload: error.message })
+        ? dispatch({
+            type: onError,
+            payload: error.response
+              ? error.response.data.message || error.response.data
+              : error.message,
+          })
         : dispatch({
             type: actions.apiCallFailed.type,
-            payload: error.message,
+            payload: error.response
+              ? error.response.data.message || error.response.data
+              : error.message,
           });
     }
   };

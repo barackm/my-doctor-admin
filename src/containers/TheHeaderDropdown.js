@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   CBadge,
   CDropdown,
@@ -9,18 +9,35 @@ import {
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import storage from "src/utils/storage";
+import jwtDecode from "jwt-decode";
 
 const TheHeaderDropdown = () => {
+  const [currentUser, setCurrentUser] = React.useState({});
   const handleLogout = () => {
     storage.removeAuthToken();
     window.location.href = "/login";
   };
+  useEffect(() => {
+    try {
+      const token = storage.getAuthToken();
+      if (token) {
+        const decoded = jwtDecode(token);
+        setCurrentUser(decoded);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   return (
     <CDropdown inNav className="c-header-nav-items mx-2" direction="down">
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={"avatars/6.jpg"}
+            src={
+              currentUser.profileImage ||
+              "https://res.cloudinary.com/fidbagraphicscode/image…rofile_smiley_happy_people_icon_181665_khjhdw.png"
+            }
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />

@@ -63,7 +63,12 @@ const Edit = ({
       history.replace("/doctors");
     }
 
-    setDoctor({ ...doctor, password: "" });
+    setDoctor({
+      ...doctor,
+      password: "",
+      status: doctor?.status,
+      gender: doctor?.status,
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -325,7 +330,7 @@ const Edit = ({
                       name="gender"
                       id="select"
                       onChange={handleChange}
-                      defaultValue={doctor.gender}
+                      defaultValue={doctor.gender === "M" ? "M" : "F"}
                     >
                       <option>Choose...</option>
                       <option value="M">M</option>

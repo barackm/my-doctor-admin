@@ -17,7 +17,7 @@ import logo from "../assets/icons/logo.png";
 // sidebar nav config
 import navigation from "./_nav";
 
-const TheSidebar = () => {
+const TheSidebar = (props) => {
   const dispatch = useDispatch();
   const show = useSelector((state) => state.sidebarShow);
 
