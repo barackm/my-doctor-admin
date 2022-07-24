@@ -8,21 +8,12 @@ const TheFooter = () => {
         <span className="ml-1">
           copyright &copy; {new Date().getFullYear()}{" "}
           <a
-            href="https://barackm.me"
+            href="https://alfredbis29.github.io/My-portfolio/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Barack Mukelenga
+            Alfred Bisimwa
           </a>
-          ,{" "}
-          <a
-            href="https://moiser.netlify.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Moise Rushanika
-          </a>
-          .
         </span>
       </div>
       <div className="mfs-auto">

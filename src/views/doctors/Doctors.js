@@ -44,7 +44,6 @@ const Doctors = ({ loadDoctors, doctors, error }) => {
     loadDoctors();
   }, [currentPage, page, loadDoctors]);
 
-  console.log(doctors);
   return (
     <>
       {error && (

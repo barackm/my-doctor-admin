@@ -5,6 +5,8 @@ import { TheContent, TheSidebar, TheFooter, TheHeader } from "./index";
 
 const TheLayout = ({ history }) => {
   const [isFetching, setIsFetching] = React.useState(true);
+  window.appHistory = history;
+
   useEffect(() => {
     const token = storage.getAuthToken();
     if (token) {

@@ -41,7 +41,6 @@ const Tests = (props) => {
 
   useEffect(() => {
     const patientId = match.params.id;
-    console.log(patientId);
     if (patientId) {
       loadTests(patientId);
     } else {
