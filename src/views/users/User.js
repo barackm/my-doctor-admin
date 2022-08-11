@@ -13,24 +13,21 @@ import CIcon from "@coreui/icons-react";
 import Model from "../../reusable/Model";
 import { loadUsers } from "src/store/reducers/users";
 import { connect } from "react-redux";
-import { loadDoctors } from "src/store/reducers/doctors";
+import { deleteUser } from "src/store/reducers/users";
 
-const User = ({ match, users, history, loadUsers }) => {
+const User = ({ match, users, history, loadUsers, deleteUser }) => {
   const [modelShown, setModelShown] = useState(false);
   useEffect(() => {
     loadUsers();
+    return () => {};
   }, [loadUsers]);
-  const user = users.find((user) => user._id.toString() === match.params.id);
+  const user = users.find((user) => user._id === match.params.id);
   if (!user) {
     return history.push("/users");
   }
   const handleDeleteUser = () => {
-    // console.log("deleting user...");
-    // console.log(
-    //   `/${match.params.name === "d" ? "doctors" : "users"}/${match.params.id}/${
-    //     match.params.name
-    //   }/edit`
-    // );
+    // setModelShown(true)
+    deleteUser(match.params.id);
   };
 
   return (
@@ -78,7 +75,8 @@ const User = ({ match, users, history, loadUsers }) => {
               <CButton
                 size="sm"
                 className="btn-pinterest btn-brand mr-1 mb-1"
-                onClick={() => setModelShown(true)}
+                to="/users"
+                onClick={handleDeleteUser}
               >
                 <CIcon size="sm" name="cil-trash" />
                 <span className="mfs-2">Remove User</span>
@@ -174,7 +172,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   loadUsers: () => loadUsers(),
-  loadDoctors: () => loadDoctors(),
+  // loadDoctors: () => loadDoctors(),
+  deleteUser: (id) => deleteUser(id),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(User);

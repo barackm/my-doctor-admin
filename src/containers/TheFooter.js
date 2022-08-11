@@ -5,17 +5,21 @@ const TheFooter = () => {
   return (
     <CFooter fixed={false}>
       <div>
-        <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
-          CoreUI
-        </a>
         <span className="ml-1">
-          &copy; 2020 Barack Mukelenga, Moise Rushanika.
+          copyright &copy; {new Date().getFullYear()}{" "}
+          <a
+            href="https://alfredbis29.github.io/My-portfolio/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Alfred Bisimwa
+          </a>
         </span>
       </div>
       <div className="mfs-auto">
         <span className="mr-1">Powered by</span>
         <a
-          href="https://coreui.io/react"
+          href="https://www.ulk.ac.rw/"
           target="_blank"
           rel="noopener noreferrer"
         >

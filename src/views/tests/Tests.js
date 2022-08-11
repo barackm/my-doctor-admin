@@ -11,7 +11,7 @@ import {
   CPagination,
 } from "@coreui/react";
 
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { loadTests } from "src/store/reducers/tests";
 import moment from "moment";
 
@@ -29,11 +29,13 @@ const getBadge = (status) => {
 };
 
 const Tests = (props) => {
-  const { loadTests, tests, match } = props;
+  const { loadTests, match } = props;
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
+  const tests = useSelector((state) => state.tests.list);
+  const loading = useSelector((state) => state.tests.loading);
 
   const pageChange = (newPage) => {};
 
@@ -61,6 +63,7 @@ const Tests = (props) => {
           </CCardHeader>
           <CCardBody>
             <CDataTable
+              loading={loading}
               items={tests.map((test) => {
                 return {
                   _id: test._id,

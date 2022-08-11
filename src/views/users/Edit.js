@@ -19,8 +19,9 @@ import CIcon from "@coreui/icons-react";
 
 import { loadUsers, updateUserInfo } from "src/store/reducers/users";
 import { connect } from "react-redux";
+import Toaster from "src/reusable/Toaster";
 
-const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
+const Edit = ({ match, users, loadUsers, history, updateUserInfo, error }) => {
   const [errors, setErrors] = React.useState({});
   const [user, setUser] = React.useState({
     _id: "",
@@ -47,7 +48,12 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
     if (!foundUser) {
       history.replace("/users");
     }
-    setUser({ ...user, ...foundUser });
+    setUser({
+      ...user,
+      ...foundUser,
+      status: foundUser.status,
+      gender: foundUser.gender,
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -60,6 +66,8 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
     validateUserData(user);
     if (errors["name"] || errors["email" || errors["lastName"]]) return;
     updateUserInfo(user._id, user);
+
+    if (error) return;
     history.push("/users");
   };
 
@@ -82,6 +90,9 @@ const Edit = ({ match, users, loadUsers, history, updateUserInfo }) => {
 
   return (
     <>
+      {error && (
+        <Toaster title="User action Failed" message={error} show error />
+      )}
       <CRow
         style={{
           display: "flex",
@@ -336,6 +347,7 @@ const mapStateToProps = (state) => {
     users: state.users.list,
     loading: state.users.loading,
     doctors: state.doctors.list,
+    error: state.users.error,
   };
 };
 

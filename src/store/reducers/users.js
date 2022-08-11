@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as actions from "../actions/api";
 import jwtDecode from "jwt-decode";
+let history = require("history").createBrowserHistory();
 
 const slice = createSlice({
   name: "users",
@@ -40,6 +41,7 @@ const slice = createSlice({
       );
       users.list[index] = decodedToken;
       users.loading = false;
+      history.push("/users");
     },
 
     userInfoUpdateFailed: (users, action) => {
@@ -73,6 +75,7 @@ export const loadUsers = () => (dispatch) => {
 };
 
 export const deleteUser = (id) => (dispatch) => {
+  console.log(id);
   dispatch(
     actions.apiCallBegan({
       onStart: usersRequested.type,
